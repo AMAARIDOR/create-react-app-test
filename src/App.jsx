@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Table from "./Table";
 
 class App extends Component {
-  render() {
-    const characters = [
+  state = {
+    characters: [
       {
         name: "Charlie",
         job: "Janitor",
@@ -24,12 +24,27 @@ class App extends Component {
         name: "Amaari",
         job: "Developer",
       },
-    ];
+    ],
+  };
+
+  removeCharacter = (index) => {
+    const { characters } = this.state;
+
+    this.setState({
+      characters: characters.filter((character, i) => i !== index),
+    });
+  };
+
+  render() {
+    const { characters } = this.state;
 
     return (
       <React.StrictMode>
         <div className="Container">
-          <Table characterData={characters} />
+          <Table
+            removeCharacter={this.removeCharacter}
+            characterData={characters}
+          />
         </div>
       </React.StrictMode>
     );
